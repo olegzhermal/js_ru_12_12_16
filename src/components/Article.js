@@ -19,13 +19,13 @@ export default class Article extends Component {
   render() {
     const {article} = this.props
     console.log(article);
-    const {toggleOpen, toggleComments, getBody, getCommentsList} = this
+    const {toggleOpen, toggleComments, getBody, getCommentsList, getToggleCommentsButtonName} = this
 
     return (
       <div>
         <h3 onClick={toggleOpen}>{article.title}</h3>
         {getBody()}
-        <button onClick={toggleComments}>Show comments</button>
+        <button onClick={toggleComments}>{getToggleCommentsButtonName()}</button>
         {getCommentsList()}
       </div>
     )
@@ -44,8 +44,15 @@ export default class Article extends Component {
   }
 
   getCommentsList = () => {
-    if (!this.state.commentsAreOpen) return null
+    if (!this.state.commentsAreOpen)
+      return null
     return <Comments comments={this.props.article.comments}/>
+  }
+
+  getToggleCommentsButtonName = () => {
+    if (!this.state.commentsAreOpen)
+      return "Show comments"
+    return "Close comments"
   }
 
   getBody = () => {
