@@ -11,6 +11,7 @@ export default function toggleOpen2(Component) {
         }
 
         toggleOpenArticle = id => ev => {
+            if (id === this.state.openArticleId) return this.setState({openArticleId: null})
             this.setState({
                 openArticleId: id
             })
