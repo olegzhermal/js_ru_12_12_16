@@ -8,6 +8,7 @@ export default class ArticleList extends React.Component {
     }
     render() {
         const {articles} = this.props
+
         const articleElements = articles.map(article =>
             <li key={article.id}>
                 <Article article={article}
