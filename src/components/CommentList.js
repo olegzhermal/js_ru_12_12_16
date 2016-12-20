@@ -8,7 +8,8 @@ class CommentList extends Component {
     }
 
     static propTypes = {
-        comments: PropTypes.array
+        comments: PropTypes.array,
+        isOpen: PropTypes.bool.isRequired
     }
 
     componentWillMount() {
