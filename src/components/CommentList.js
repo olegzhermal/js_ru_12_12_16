@@ -3,6 +3,11 @@ import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
 
 class CommentList extends Component {
+    state = {
+      comment: "",
+      author: ""
+    }
+
     static propTypes = {
         comments: PropTypes.array,
         isOpen: PropTypes.bool,
@@ -12,10 +17,24 @@ class CommentList extends Component {
         comments: []
     }
 
+    changeComment = e => {
+      this.setState({[e.target.id]: e.target.value});
+    }
+
+    submitComment = () => {
+      console.log(this.state);
+    }
+
     render() {
+        const {state, changeComment, submitComment} = this;
         return (
             <div>
                 {this.getLink()}
+                <div>
+                  Comment: <input type="text" id="comment" placeholder="comment" value={state.comment} onChange={changeComment}/>
+                  Author: <input type="text" id="author" placeholder="author" value={state.author} onChange={changeComment}/>
+                  <button onClick={submitComment}>Submit comment</button>
+                </div>
                 {this.getBody()}
             </div>
         )
