@@ -3,6 +3,7 @@ import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
 
 class CommentList extends Component {
+        //форма заслуживает отдельного компонента
     state = {
       comment: "",
       author: ""
@@ -27,6 +28,7 @@ class CommentList extends Component {
 
     render() {
         const {state, changeComment, submitComment} = this;
+        //использовать id - плохая идея, они у тебя 100% будут не уникальными на странице в результате
         return (
             <div>
                 {this.getLink()}
