@@ -3,11 +3,22 @@ import {findDOMNode} from 'react-dom'
 import Article from './Article'
 import accordion from '../decorators/accordion'
 import { connect } from 'react-redux'
+import moment from 'moment'
 
 class ArticleList extends React.Component {
     render() {
-        const {articles, isOpenItem, toggleOpenItem} = this.props
-        const articleElements = articles.map(article =>
+        const {articles, isOpenItem, toggleOpenItem, dateFilter, titleFilter} = this.props
+        // const {from, to} = dateFilter
+        const from = dateFilter[0]
+        const to = dateFilter[1]
+
+        const filteredArticles = articles.filter(article => {
+          const titleFilterCheck = (titleFilter.length !== 0) ? titleFilter.includes(article.id) : true
+          const dateFilterCheck = (from !== null || to !== null) ? moment(article.date).isBetween(from, to) : true
+          console.log(dateFilterCheck);
+          return titleFilterCheck && dateFilterCheck
+        })
+        const articleElements = filteredArticles.map(article =>
             <li key={article.id}>
                 <Article article={article}
                          isOpen={isOpenItem(article.id)}
@@ -40,8 +51,11 @@ ArticleList.propTypes = {
 
 export default connect(
     (state) => {
+        const {articlesArray, dateFilter, titleFilter} = state.articles
         return {
-            articles: state.articles
+            articles: articlesArray,
+            dateFilter: dateFilter,
+            titleFilter: titleFilter
         }
     }
 )(accordion(ArticleList))

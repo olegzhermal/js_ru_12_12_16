@@ -23,9 +23,10 @@ class ArticlesSelect extends Component {
         )
     }
 
-    handleChange = selected => this.setState({
-        selected
-    })
+    handleChange = selected => {
+      this.props.filterFunc(selected.map(article => article.value));
+      return this.setState({ selected })
+  }
 }
 
 export default ArticlesSelect

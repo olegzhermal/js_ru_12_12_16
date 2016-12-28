@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import ArticlesSelect from './ArticlesSelect'
 import DateRange from './DateRange'
+import { connect } from 'react-redux'
+import { filterArticlesByTitle, filterArticlesByDate } from '../AC'
+// import { articles } from '../fixtures'
 
 class Filters extends Component {
     static propTypes = {
@@ -8,13 +11,22 @@ class Filters extends Component {
     }
 
     render() {
+      const {filterArticlesByDate, filterArticlesByTitle} = this.props;
+
         return (
             <div>
-                <ArticlesSelect articles = {this.props.articles}/>
-                <DateRange/>
+                <ArticlesSelect articles = {this.props.articles} filterFunc={filterArticlesByTitle}/>
+                <DateRange filterFunc={filterArticlesByDate} />
             </div>
         )
     }
 }
 
-export default Filters
+export default connect(
+    (state) => {
+        return {
+            articles: state.articles.articlesArray
+        }
+    },
+    {filterArticlesByDate, filterArticlesByTitle}
+)(Filters)
