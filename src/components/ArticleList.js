@@ -11,7 +11,7 @@ class ArticleList extends React.Component {
         // const {from, to} = dateFilter
         const from = dateFilter[0]
         const to = dateFilter[1]
-
+        //это лучше делать в коннекте
         const filteredArticles = articles.filter(article => {
           const titleFilterCheck = (titleFilter.length !== 0) ? titleFilter.includes(article.id) : true
           const dateFilterCheck = (from !== null || to !== null) ? moment(article.date).isBetween(from, to) : true
