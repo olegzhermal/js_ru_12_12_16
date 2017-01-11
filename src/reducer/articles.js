@@ -4,6 +4,7 @@ import moment from 'moment'
 
 const defaultState = {
     articlesArray: articles,
+    //логичнее было завести отдельный редюсер для фильтров
     titleFilter: [],
     dateFilter: [null, null],
     // dateFilter: {
@@ -24,6 +25,7 @@ export default (articlesState = defaultState, action) => {
       case FILTER_BY_DATE:
         const {from, to} = payload
         // const newState = Object.assign({}, articlesState)
+        //это приводит к мутации прошлого стейта, в результате редакс считает, что ничего не поменялось
         // newState.dateFilter.from = from
         // newState.dateFilter.to = to
         // return newState
