@@ -26,6 +26,7 @@ class Article extends Component {
 
     render() {
         const { article, onClick } = this.props
+
         return (
             <div ref = "container">
                 <h3 onClick = {onClick}>{article.title}</h3>
@@ -44,11 +45,13 @@ class Article extends Component {
     }
 
     getBody() {
+        const {article} = this.props
         if (!this.props.isOpen) return null
+
         return (
             <section>
-                {this.props.article.text}
-                <CommentList commentsIds = {this.props.article.comments} />
+                {article.text}
+                <CommentList commentsIds = {article.comments} articleId={article.id}/>
             </section>
         )
     }

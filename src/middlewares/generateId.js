@@ -1,5 +1,8 @@
 export default store => next => action => {
-  const id = generate(20)
+  if (action.type === 'ADD_COMMENT') {
+    action.payload.id = generate(20)
+  }
+
   next(action)
 }
 
