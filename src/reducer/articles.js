@@ -20,6 +20,7 @@ export default (articlesState = defaultState, action) => {
         case DELETE_ARTICLE:
             return articlesState.delete(payload.id)
         case ADD_COMMENT:
+            //вот тут очень плохо. Во-первых push мутирует массив, во-вторых articlesState.updateIn создает новый объект, который тут-же чистится GC, его нужно возвращать. твой код работает благодаря прошлой ошибке
             articlesState.updateIn([articleId, 'comments'], arr => arr.push(payload.id) )
             return articlesState
     }
