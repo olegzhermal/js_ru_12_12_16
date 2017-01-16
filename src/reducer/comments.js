@@ -8,7 +8,7 @@ const CommentModel = Record({
   "user": null,
   "text": null
 })
-
+//CommentModel ты описал, но не использовал
 const defaultState = arrayToMap(normalizedComments, CommentModel)
 
 export default (state = defaultState, action) => {
@@ -16,6 +16,7 @@ export default (state = defaultState, action) => {
 
   switch (type) {
     case ADD_COMMENT:
+      //здесь тоже стоило new CommentModel(payload) сделать
       return state.set(payload.id, payload)
   }
 
