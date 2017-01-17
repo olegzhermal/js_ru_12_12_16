@@ -1,5 +1,5 @@
 import { INCREMENT, DELETE_ARTICLE, ADD_COMMENT, LOAD_ALL_ARTICLES, LOAD_ARTICLE,
-    START, SUCCESS, FAIL } from '../constants'
+    START, SUCCESS, FAIL, LOAD_COMMENTS } from '../constants'
 import $ from 'jquery'
 
 export function increment() {
@@ -51,4 +51,12 @@ export function loadArticleById(id) {
                 error
             }))
     }
+}
+
+export function loadCommentsByArticleId(articleId) {
+  console.log(articleId);
+  return {
+      type: LOAD_COMMENTS,
+      callAPI: `/api/comment?article=${articleId}`
+  }
 }

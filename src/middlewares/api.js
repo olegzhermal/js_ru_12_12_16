@@ -8,9 +8,9 @@ export default store => next => action => {
     next({...rest, type: type + START})
 
     //dev only, remove in prod!
-    setTimeout(() => {
+    // setTimeout(() => {
         $.get(callAPI)
             .done(response => next({...rest, type: type + SUCCESS, response}))
             .fail(error => next({...rest, type: type + FAIL, error}))
-    }, 1000)
+    // }, 1000)
 }

@@ -4,6 +4,7 @@ import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
 import NewCommentForm from './NewCommentForm'
 import {connect} from 'react-redux'
+import {loadCommentsByArticleId} from '../AC'
 
 class CommentList extends Component {
     static propTypes = {
@@ -12,7 +13,12 @@ class CommentList extends Component {
         toggleOpen: PropTypes.func
     }
 
+    componentDidMount() {
+        this.props.loadCommentsByArticleId(this.props.article.id)
+    }
+
     render() {
+      console.log(this.props);
         return (
             <div>
                 {this.getLink()}
@@ -44,7 +50,11 @@ class CommentList extends Component {
 }
 
 export default connect((storeState, props) => {
+  // console.log(storeState.comments);
+  // const comments = mapToArray(storeState.comments.entities)
+  console.log(storeState.comments.entities);
+  console.log(storeState.comments.get('entities'));
     return {
         comments: props.article.comments.map(id => storeState.comments.get(id))
     }
-}, { addComment })(toggleOpen(CommentList))
+}, { addComment, loadCommentsByArticleId })(toggleOpen(CommentList))
