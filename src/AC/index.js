@@ -54,9 +54,9 @@ export function loadArticleById(id) {
 }
 
 export function loadCommentsByArticleId(articleId) {
-  console.log(articleId);
   return {
       type: LOAD_COMMENTS,
+      articleId: articleId,
       callAPI: `/api/comment?article=${articleId}`
   }
 }

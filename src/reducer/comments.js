@@ -13,14 +13,14 @@ const CommentModel = Record({
 const defaultState = Record({
     error: null,
     loading: false,
-    loaded: false,
+    loaded: [],
     entities: new OrderedMap({})
 })
 
 // const defaultState = arrayToMap(normalizedComments, CommentModel)
 
-export default (state = defaultState, action) => {
-    const { type, payload, randomId, response } = action
+export default (state = new defaultState, action) => {
+    const { type, payload, randomId, response, articleId } = action
 
     switch (type) {
         case ADD_COMMENT:
@@ -30,11 +30,10 @@ export default (state = defaultState, action) => {
             return state.set('loading', true)
 
         case LOAD_COMMENTS + SUCCESS:
-          console.log(response);
             return state
                 .mergeIn(['entities'], arrayToMap(response, CommentModel))
                 .set('loading', false)
-                .set('loaded', true)
+                .updateIn(['loaded'], articleIds => articleIds.concat(articleId))
                 .set('error', null)
 
         case LOAD_COMMENTS + FAIL:
