@@ -20,6 +20,7 @@ class CommentList extends Component {
 
     showComments = () => {
       this.props.toggleOpen()
+      //ок, но делая это не в lifecycle хуке ты уходишь от декларативного программирования к императивному и уменьшаешь возможность реюза. Представь, что этот список может не только сам себя открывать
       if (!this.props.loaded.includes(this.props.article.id)) this.props.loadCommentsByArticleId(this.props.article.id)
     }
 
